@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natasha &#9829; Fabian</title>
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- Select2 https://select2.org/ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
+    <!-- Custom fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Birthstone&family=Birthstone+Bounce:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Puppies+Play&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Overlay popups -->
+    <div id="overlay" class="transition">
+        <a class="close"></a>
+    </div>
+    <section id="music" class="transition" hidden>
+        <h2>&#9835; SONG REQUESTS &#9835;</h2>
+        <p>Would you like to put in a song request to our DJ? Send the song name and artist here!</p>
+        <p style="font-size: 13px;"><b id="song-status">You can submit up to 10 songs.</b></p>
+        <input type="text" maxlength="100" id="song-name"><br><br>
+        <button id="submit-song">Submit</button>
+    </section>
+    <div id="popup">
+        <div class="reveal-wrapper" id="asset-invite">
+
+            <div class="letter-underneath">
+                <div class="invitation-note">
+                    <p class="invite-small">Together with their families</p>
+
+                    <h1>Natasha &amp; Fabian</h1>
+
+                    <p>joyfully invite you to celebrate their marriage</p>
+
+                    <div class="invite-divider">❦</div>
+
+                    <p class="invite-date">17 October 2026</p>
+
+                    <p class="invite-small">Ceremony at 15:00</p>
+
+                    <p id="popup-location" class="invite-location">
+                        Location available with a valid RSVP link
+                    </p>
+
+                    <a href="#top-image-section" class="view-more">View Details</a>
+                </div>
+            </div>
+
+            <div class="panel-group left-panel">
+                <img src="assets/letter-left.png" class="face front" alt="Left panel front">
+                <img src="assets/letter-left.png" class="face back" alt="Left panel back">
+            </div>
+
+            <div class="panel-group right-panel">
+                <img src="assets/letter-right.png" class="face front" alt="Right panel front">
+                <img src="assets/letter-right.png" class="face back" alt="Right panel back">
+            </div>
+
+            <div class="seal-container" id="wax-seal">
+                <img src="assets/wax-seal-full.png" class="seal-image full-seal" alt="Wax seal">
+                <img src="assets/wax-seal-left.png" class="seal-image left-half" alt="Wax seal left half">
+                <img src="assets/wax-seal-right.png" class="seal-image right-half" alt="Wax seal right half">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Top navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                Natasha &#9829; Fabian
+            </div>
+
+            <div class="nav-actions">
+                <a href="#rsvp-section" class="nav-rsvp">RSVP</a>
+                <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu">
+                    <span class="burger-bar"></span>
+                    <span class="burger-bar"></span>
+                    <span class="burger-bar"></span>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="#welcome-section">Welcome</a>
+                <a href="#night-before-section">Night Before</a>
+                <a href="#details-section">Wedding</a>
+                <a href="#dress-code-section">Dress Code</a>
+                <a href="#menu-section">Menu</a>
+                <a href="#registry-section">Registry</a>
+                <a href="#accommodation-section">Accommodation</a>
+                <a href="#faq-section">FAQ</a>
+                <a class="music-nav-button">
+                    <span class="nav-song">Song</span> Requests
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <section class="top" id="top-image-section"></section>
+
+    <section id="welcome-section">
+        <h2>WELCOME</h2>
+        <p>
+            We're so excited to celebrate our wedding with our family and friends.
+        </p>
+        <p>
+            This website contains everything you'll need for the wedding weekend,
+            including event details, accommodation options, menu information,
+            RSVP instructions, and helpful guest information.
+        </p>
+        <p>
+            We can't wait to celebrate with you!
+        </p>
+    </section>
+
+    <section id="night-before-section">
+        <h2>A TOAST TO TOMORROW</h2>
+        <p>
+            Guests are welcome to join us for a relaxed evening before the wedding.
+        </p>
+        <p>
+
+            <b>16 October 2026</b><br><br>
+
+            Guests can arrive from <b>18:00</b><br><br>
+
+            <b id="loc_2">Checking rsvp token...</b>
+        </p>
+        <p>
+            Feel free to drop in and spend some time together before the big day. Further details will follow.
+        </p>
+    </section>
+
+    <section>
+        <a class="anchor" id="details-section"></a>
+        <br>
+        <h2>WEDDING DETAILS</h2>
+        <p>
+            Together with our families, we request the pleasure of your company to celebrate our
+            union.
+            Please join us for a day filled with love, laughter, and joy as we unite in marriage and celebrate this
+            journey together.
+        </p>
+        <hr>
+        <p>
+            Ceremony &amp; Reception<br>
+            <b>17 October 2026</b><br>
+            <b>Guests to arrive at 14:30</b><br>
+            Guests to be seated by 14:45<br>
+            Ceremony starts at 15:00<br>
+            Reception to follow<br><br>
+
+            Venue<br>
+            <b id="loc_1">Checking RSVP token...</b><br><br>
+
+            Dress code<br>
+            <b>Black Tie</b><br><br>
+
+            RSVP by<br>
+            <b>22 August 2026</b>
+        </p>
+    </section>
+
+    <section id="dress-code-section">
+        <h2>DRESS CODE</h2>
+
+        <p>
+            We kindly invite our guests to join us in celebrating in <b>Black Tie</b> attire.
+        </p>
+
+        <p>
+            For gentlemen, this typically means a tuxedo or a dark formal suit with a tie or bow tie.
+            For ladies, a long evening gown or elegant formal attire would be perfect.
+        </p>
+
+        <p>
+            Most importantly, we want you to feel comfortable, confident, and ready to celebrate with us!
+        </p>
+
+        <img class="colour-pallet" src="assets/colour-pallet.jpg" alt="Wedding colour palette">
+
+        <p>
+            Looking for inspiration? Take a peek at our
+            <a href="https://pin.it/6r6xsAwMA" target="_blank" rel="noopener noreferrer">dress
+                code inspiration board</a>.
+        </p>
+
+        <div class="dress-code-gallery">
+            <!-- Dress code inspiration images -->
+        </div>
+    </section>
+
+    <section id="morning-after-section">
+        <h2>THE MORNING AFTER</h2>
+        <p>
+            Before you head home, join us for a relaxed morning after the celebrations,
+            where coffee and light refreshments will be available. A relaxed opportunity to spend a little more time
+            together after the wedding celebrations.
+
+        </p>
+        <p>
+            <b style="font-size: 12px;">
+                Please note there is no formal breakfast provided at the accommodation.
+            </b>
+        </p>
+    </section>
+
+    <section class="gallery" id="gallery-section">
+        <div class="container">
+            <img class="nomobile" src="assets/gallery_0.jpg">
+            <img src="assets/gallery_1.jpg">
+            <img class="nomobile" src="assets/gallery_2.jpg">
+            <img src="assets/gallery_3.jpg">
+            <img src="assets/gallery_4.jpg">
+            <img src="assets/gallery_5.jpg">
+            <img class="nomobile" src="assets/gallery_6.jpg">
+            <img src="assets/gallery_7.jpg">
+            <img src="assets/gallery_8.jpg">
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu-section">
+        <h1>THE MENU</h1>
+        <p>
+            We both really enjoy good food, so choosing the menu was something we were especially excited about.
+            We have selected mains that we personally love and hope you will enjoy as much as we do.<br><br>
+            Three options are provided for the main courses:
+            <b>Norwegian Salmon</b> or <b>Slow Roasted Pork Belly</b>.
+            For vegetarians, we have a <b>Phyllo Pocket</b>.
+        </p>
+        <p>
+            <b style="font-size: 12px; line-height: 0%;">
+                Please contact us if you have any allergies or other dietary requirements.
+            </b>
+        </p>
+        <hr>
+        <h2>Entr&#233e</h2>
+        <div class="menu-item">
+            <h3>Springbok Carpaccio</h3>
+            Served with balsamic caviar, cucumber spaghetti, cream cheese, and pecorino shavings
+        </div>
+        <div class="menu-item">
+            <h3>Bloody Mary Crumpets</h3>
+            Crumpet with dill cream cheese, dill wrapped smoked salmon, prawn tails, and shrimps
+        </div>
+        <div class="menu-item">
+            <h3>Puff Pastry Tartlets <span class="green">(V)</span></h3>
+            Caramelized onion, heirloom tomato, pitted olives, and feta puff pastry tartlets served with basil oil
+        </div>
+        <h2>Mains</h2>
+        <div class="menu-item">
+            <h3>Norwegian Salmon</h3>
+            Soy sauce, creamed spinach, crispy deep-fried potato croquette, grilled asparagus and broccolini
+        </div>
+
+        <div class="menu-item">
+            <h3>Slow Roasted Pork Belly</h3>
+            Cauliflower purée, crispy fried potato croquette, grilled courgettes, crispy onions and red wine poached
+            pear
+        </div>
+        <div class="menu-item">
+            <h3>Phyllo Pocket <span class="green">(V)</span></h3>
+            Phyllo pocket stuffed with grilled butternut and feta served on a portobello mushroom and spinach purée with
+            crispy fried potato croquette and vegetable parcel>
+        </div>
+        <hr><br><br>
+    </section>
+
+    <section id="rsvp-section-wrapper">
+        <a class="anchor" id="rsvp-section"></a>
+
+        <p id="rsvp-public-message">
+            Please use the RSVP link provided with your invitation to confirm your attendance.
+        </p>
+
+        <div id="rsvp-loading" class="rsvp-message">
+            Checking RSVP link...
+        </div>
+
+        <div id="rsvp" class="rsvp-container" hidden>
+            <form id="rsvp-form" class="rsvp-form">
+                <span id="rsvp-error" hidden></span>
+                <h2>RSVP</h2>
+                <p>Dear <b id="rsvp-guest-names">???</b>, we would love to have you at our wedding!</p>
+                <p>Please let us know which events <span name="attend-pron">I</span> will be joining:</p>
+                <div class="attend-options">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="attend-night-before" name="attend-event" hidden
+                            onchange="checkChanged(this)"></input>
+                        <label for="attend-night-before" class="custom-checkbox"></label>
+                        <span class="custom-checkbox-label">Night Before &middot; 16 Oct</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="attend-wedding" name="attend-event" hidden
+                            onchange="checkChanged(this)"></input>
+                        <label for="attend-wedding" class="custom-checkbox"></label>
+                        <span class="custom-checkbox-label">Wedding &middot; 17 Oct</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="attend-morning-after" name="attend-event" hidden
+                            onchange="checkChanged(this)"></input>
+                        <label for="attend-morning-after" class="custom-checkbox"></label>
+                        <span class="custom-checkbox-label">Morning After &middot; 18 Oct</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="attend-no" name="attend-option" hidden
+                            onchange="checkChanged(this)"></input>
+                        <label for="attend-no" class="custom-checkbox"></label>
+                        <span class="custom-checkbox-label"><span name="attend-pron">I</span> can't make it</span>
+                    </div>
+                </div>
+                <div id="normal-attend" hidden>
+                    <p>Please choose your preferred entr&#233e and main course.</p>
+                </div>
+                <div id="multi-attend" hidden>
+                    <p>Please indicate who is attending and their menu selection.</p>
+                    <div class="guest-list" style="display: none;">
+                        <div id="guest-names" class="guest-column">
+                            <b>Guest</b>
+                        </div>
+                        <div id="guest-attending" class="guest-column">
+                            <b>Attending</b>
+                        </div>
+                        <div id="guest-dietary" class="guest-column-wide">
+                            <b class="header-diet">Dietary</b>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" id="submit" disabled="true">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="mid"></section>
+
+    <section id="registry-section">
+        <h2>REGISTRY</h2>
+        <p>
+            Your presence on our special day is the greatest gift of all. However, should you
+            wish to spoil us, we have put together a registry to help us start this next chapter
+            together.
+        </p>
+        <p>
+            <a href="https://www.easyregistry.co.za/natashaandfabian" target="_blank" rel="noopener noreferrer">View our
+                registry</a>
+        </p>
+    </section>
+
+    <section id="accommodation-section">
+        <h2>ACCOMMODATION</h2>
+        <p>
+            There is limited accommodation available on-site for guests and additional off-site accommodation in the
+            surrounding area.
+        </p>
+
+        <h3>On-Site Accommodation</h3>
+        <p>
+            On-site accommodation is available for a two-night stay over the wedding weekend.
+            If you are interested in staying on-site, please let us know as soon as possible so we can assist with the
+            available options.
+        </p>
+        <div id="onsite-accommodation-list"></div>
+
+        <h3>Off-Site Accommodation</h3>
+        <p>
+            There are also many lovely off-site accommodation options nearby for guests who prefer to stay elsewhere,
+            or who are not able to secure a spot on-site.
+        </p>
+        <div id="offsite-accommodation-list"></div>
+
+        <p>
+            <b style="font-size: 12px;">
+                Availability cannot be guaranteed and booking early is recommended.
+            </b>
+        </p>
+    </section>
+
+    <section id="map"></section>
+
+    <div class="bottom"></div>
+
+    <section id="faq-section">
+        <h2>FAQ</h2>
+
+        <h3>When should I arrive?</h3>
+        <p>
+            Guest arrival time from <b>14:30</b>. All guest to be seated by <b>14:45</b>.
+        </p>
+
+        <h3>Is parking available?</h3>
+        <p>
+            Yes. There is sufficient parking available at the venue, and guests will be able to park on-site.
+        </p>
+
+        <h3>Is transport provided?</h3>
+        <p>
+            Guests are required to arrange their own transport to the venue. Uber is not readily available, however some
+            local shuttle services are provided by Dtrack Tours (083 377 6614) and Zane (082 045 1754).
+        </p>
+
+        <h3>Is the accommodation self-catering?</h3>
+        <p>
+            Yes. The accommodation is self-catering, so guests staying on-site should please plan accordingly.
+        </p>
+
+        <h3>Are children welcome?</h3>
+        <p>
+            While we love your little ones, unfortunately children are not invited to the wedding.
+            If needed, we can put parents in touch with each other to help coordinate childcare arrangements.
+        </p>
+
+        <h3>Does the invitation include a plus one?</h3>
+        <p>
+            This invitation is extended to you and those listed on your invitation only. Unfortunatley no additional
+            plus ones can be accomodated.
+        </p>
+
+        <h3>Will drinks be available for purchase?</h3>
+        <p>
+            There will be a cash bar stocked with drinks available for purchase on the night.
+            The bar will be card only, unfortunately the venue does not accept cash.
+        </p>
+
+        <h3>Any further questions</h3>
+        <p>
+            Feel free to reach out to Natasha or Fabian directly.
+        </p>
+    </section>
+
+    <section class="venue-footer-img"></section>
+
+    <footer>
+        <h3>Made by Fabian &amp; Natasha &#9829;</h3>
+    </footer>
+
+    <!-- Local dev only: mocks the Apps Script backend for demo tokens (?rsvp=demo). Inert in production. -->
+    <script src="mock.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
