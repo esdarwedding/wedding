@@ -154,6 +154,7 @@ function submitSong() {    // Making a POST request with the form data
                 $('#song-name').val('');
                 $('#song-status').text('Song added!');
                 $('#submit-song').prop('disabled', false);
+                loadSongs();
                 setTimeout(function () {
                     $('#song-status').text('You can submit up to 10 songs.');
                 }, 2000);
@@ -172,6 +173,88 @@ function submitSong() {    // Making a POST request with the form data
                 $('#submit-song').prop('disabled', false);
                 $('#song-status').text("You can submit up to 10 songs.");
             }, 5000);
+        });
+}
+
+function getRsvpToken() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('rsvp');
+}
+
+// Fetch the songs already submitted under this token and render the list.
+function loadSongs() {
+    const token = getRsvpToken();
+    if (!token) { return; }
+
+    fetch(`${app_url}?token=${token}&action=list_songs`, {
+        method: 'GET',
+        credentials: 'omit'
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "ok") {
+                renderSongs(data.songs || []);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading songs:', error);
+        });
+}
+
+// Render one row per song with a remove (×) button; toggle the input/cap state.
+function renderSongs(songs) {
+    const list = $('#song-list');
+    list.empty();
+    songs.forEach(function (song) {
+        const row = $('<div class="song-row"></div>');
+        $('<span class="song-title"></span>').text(song).appendTo(row);
+        const remove = $('<button type="button" class="song-remove" aria-label="Remove song">&times;</button>');
+        remove.click(function () { removeSong(song, row); });
+        remove.appendTo(row);
+        list.append(row);
+    });
+
+    const atMax = songs.length >= 10;
+    $('#song-name').prop('disabled', atMax);
+    $('#submit-song').prop('disabled', atMax);
+    $('#song-status').text(atMax ? 'Max songs reached!' : 'You can submit up to 10 songs.');
+}
+
+// Remove a previously-submitted song, then refetch the list.
+function removeSong(song, row) {
+    const token = getRsvpToken();
+    if (!token) { return; }
+
+    row.find('.song-remove').prop('disabled', true);
+    $('#song-status').text('Removing...');
+
+    fetch(app_url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({ token: token, song: song, action: 'delete' }),
+        credentials: 'omit',
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "song_deleted") {
+                $('#song-status').text('Removed!');
+                loadSongs();
+                setTimeout(function () {
+                    if ($('#song-status').text() === 'Removed!') {
+                        $('#song-status').text('You can submit up to 10 songs.');
+                    }
+                }, 2000);
+            } else {
+                row.find('.song-remove').prop('disabled', false);
+                $('#song-status').text('Could not remove song, please try again...');
+            }
+        })
+        .catch(error => {
+            console.error('Error removing song:', error);
+            row.find('.song-remove').prop('disabled', false);
+            $('#song-status').text('Error removing song, please try again...');
         });
 }
 
@@ -343,8 +426,8 @@ function displayGuestList(guestNames, data) {
                 <b>Entrée</b><br>
                 <input type="radio" id="starter-springbok-${index}" name="starter-${index}" value="springbok">
                 <label for="starter-springbok-${index}">Springbok Carpaccio</label><br>
-                <input type="radio" id="starter-crumpet-${index}" name="starter-${index}" value="crumpet">
-                <label for="starter-crumpet-${index}">Bloody Mary Crumpets</label><br>
+                <input type="radio" id="starter-tower-${index}" name="starter-${index}" value="tower">
+                <label for="starter-tower-${index}">Seafood Tower</label><br>
                 <input type="radio" id="starter-tartlet-${index}" name="starter-${index}" value="tartlet">
                 <label for="starter-tartlet-${index}">Puff Pastry Tartlets (V)</label><br>
             </div>
@@ -403,8 +486,8 @@ function displayGuestList(guestNames, data) {
                     <b>Entrée</b><br>
                     <input type="radio" id="starter-springbok-${index}" name="starter-${index}" value="springbok">
                     <label for="starter-springbok-${index}">Springbok Carpaccio</label><br>
-                    <input type="radio" id="starter-crumpet-${index}" name="starter-${index}" value="crumpet">
-                    <label for="starter-crumpet-${index}">Bloody Mary Crumpets</label><br>
+                    <input type="radio" id="starter-tower-${index}" name="starter-${index}" value="tower">
+                    <label for="starter-tower-${index}">Seafood Tower</label><br>
                     <input type="radio" id="starter-tartlet-${index}" name="starter-${index}" value="tartlet">
                     <label for="starter-tartlet-${index}">Puff Pastry Tartlets <span class="green">(V)</span></label><br>
                 </div>
@@ -693,6 +776,7 @@ function openMusic() {
     setTimeout(function () {
         $(`#music`).css('opacity', 1)
     }, 10);
+    loadSongs();
 }
 
 function openInvitation() {
@@ -733,7 +817,7 @@ $(document).ready(function () {
     $('.close').click(closeAllPopup);
     $('#wax-seal').click(openInvitation);
     $('#overlay').click(openInvitation);
-    $('.music-nav-button').click(openMusic);
+    $('.music-open-button').click(openMusic);
     $('#submit-song').click(submitSong);
 
     $('#nav-toggle').click(function () {
