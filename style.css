@@ -713,6 +713,28 @@ input[type="checkbox"]:disabled+.custom-checkbox-nocover::after {
     z-index: 1003;
 }
 
+#music-section {
+    margin-bottom: 50px;
+}
+
+.music-open-button {
+    margin-top: 10px;
+    padding: 8px 18px;
+    font-size: medium;
+    color: #411900;
+    background-color: white;
+    border: 1px solid #411900;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.music-open-button:hover {
+    background-color: #E6DEC8;
+    transform: none;
+}
+
 #music {
     position: fixed;
     /* font-family: 'Georgia', serif; */
@@ -751,6 +773,50 @@ input[type="checkbox"]:disabled+.custom-checkbox-nocover::after {
 #music button:disabled {
     background-color: #efefef;
     border-color: #a1a1a1;
+}
+
+#song-list {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.song-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid #E6DEC8;
+}
+
+.song-title {
+    font-size: 14px;
+    color: #411900;
+    word-break: break-word;
+}
+
+#music button.song-remove {
+    margin-bottom: 0;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    line-height: 1;
+    font-size: 18px;
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    color: #411900;
+    cursor: pointer;
+}
+
+#music button.song-remove:hover {
+    background: none;
+    color: #a1442a;
+}
+
+#music button.song-remove:disabled {
+    background: none;
+    color: #a1a1a1;
 }
 
 .invitation-content {
