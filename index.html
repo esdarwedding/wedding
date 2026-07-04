@@ -32,6 +32,7 @@
         <h2>&#9835; SONG REQUESTS &#9835;</h2>
         <p>Would you like to put in a song request to our DJ? Send the song name and artist here!</p>
         <p style="font-size: 13px;"><b id="song-status">You can submit up to 10 songs.</b></p>
+        <div id="song-list"></div>
         <input type="text" maxlength="100" id="song-name"><br><br>
         <button id="submit-song">Submit</button>
     </section>
@@ -101,12 +102,12 @@
                 <a href="#details-section">Wedding</a>
                 <a href="#dress-code-section">Dress Code</a>
                 <a href="#menu-section">Menu</a>
-                <a href="#accommodation-section">Accommodation</a>
-                <a href="#registry-section">Registry</a>                
-                <a href="#faq-section">FAQ</a>
-                <a class="music-nav-button">
-                    <span class="nav-song">Song</span> Requests
+                <a href="#music-section" class="music-nav-button">
+                    <span class="nav-song">Song</span> Song Requests
                 </a>
+                <a href="#accommodation-section">Accommodation</a>
+                <a href="#registry-section">Registry</a>
+                <a href="#faq-section">FAQ</a>
             </div>
         </div>
     </nav>
@@ -256,8 +257,9 @@
             Served with balsamic caviar, cucumber spaghetti, cream cheese, and pecorino shavings
         </div>
         <div class="menu-item">
-            <h3>Bloody Mary Crumpets</h3>
-            Crumpet with dill cream cheese, dill wrapped smoked salmon, prawn tails, and shrimps
+            <h3>Seafood Tower</h3>
+            Hake and haddock tower topped with a Russian blini, cream cheese and smoked salmon, stuffed calamari, and
+            panko prawns with basil cream
         </div>
         <div class="menu-item">
             <h3>Puff Pastry Tartlets <span class="green">(V)</span></h3>
@@ -298,7 +300,7 @@
                 <span id="rsvp-error" hidden></span>
                 <h2>RSVP</h2>
                 <p>Dear <b id="rsvp-guest-names">???</b>, we would love to have you at our wedding!</p>
-                <p>Please let us know which events <span name="attend-pron">I</span> will be joining:</p>
+                <p>Please let us know which events you will be joining:</p>
                 <div class="attend-options">
                     <div class="checkbox-container">
                         <input type="checkbox" id="attend-night-before" name="attend-event" hidden
@@ -347,6 +349,15 @@
         </div>
     </section>
 
+    <section id="music-section">
+        <h2>SONG REQUESTS</h2>
+        <p>
+            Help us build the perfect playlist! Let our DJ know which songs will get you on
+            the dance floor. You can submit up to 10 song requests.
+        </p>
+        <button type="button" class="music-open-button">Request a song</button>
+    </section>
+
     <section class="mid"></section>
 
     <section id="accommodation-section">
@@ -380,7 +391,7 @@
 
     <section id="map"></section>
 
-        <section id="registry-section">
+    <section id="registry-section">
         <h2>REGISTRY</h2>
         <p>
             Your presence on our special day is the greatest gift of all. However, should you
