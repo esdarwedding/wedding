@@ -1,0 +1,116 @@
+/* Itinerary page only. Kept out of the main style.css so this standalone
+   page can't be broken by a stale cached copy of the site stylesheet. */
+
+#itinerary-section {
+    padding: 45px 20px 55px;
+}
+
+.itinerary-names {
+    font-family: "Birthstone", cursive;
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 auto 4px auto;
+    color: #411900;
+}
+
+/* margin-left/right must stay auto — section p in style.css centres a 480px box */
+.itinerary-subtitle {
+    letter-spacing: 3px;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 0 auto 10px auto;
+    color: #411900;
+}
+
+.itinerary-date {
+    letter-spacing: 1.5px;
+    margin: 0 auto 18px auto;
+    color: #411900;
+}
+
+/* Two columns, each sized to its widest entry, so the whole block is centred
+   on the page as a unit rather than sitting in the left half of a wide row.
+   inline-grid + display:contents lets the rows share one column pair. */
+.timeline {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.timeline-item {
+    display: contents;
+}
+
+/* Both cells stay stretched to the full row height so their bottom borders
+   meet as one continuous line; the flex centring below moves the text inside
+   the cell instead, which keeps time and activity aligned on the same axis
+   even once the activity grows a second line. */
+.timeline-time,
+.timeline-name {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #EDE5D2;
+}
+
+.timeline-item:last-child .timeline-time,
+.timeline-item:last-child .timeline-name {
+    border-bottom: none;
+}
+
+.timeline-time {
+    justify-content: flex-end;
+    padding-right: 11px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 15px;
+    color: #8a6b52;
+    white-space: nowrap;
+}
+
+/* Column, so the activity and its note stack; justify-content centres that
+   stack vertically now that the main axis runs top to bottom. */
+.timeline-name {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    font-size: 17px;
+    color: #411900;
+}
+
+/* Sits inside .timeline-name so the two-column grid stays intact. max-width
+   stops the sentence running the full width of a desktop screen. */
+.timeline-note {
+    max-width: 290px;
+    margin-top: 4px;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #8a6b52;
+}
+
+@media (max-width: 650px) {
+    .itinerary-names {
+        font-size: 44px;
+    }
+
+    .timeline-time {
+        padding-right: 8px;
+        font-size: 14px;
+    }
+
+    .timeline-name {
+        padding-left: 8px;
+        font-size: 16px;
+    }
+
+    .timeline-note {
+        font-size: 11px;
+    }
+}
