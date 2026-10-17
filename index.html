@@ -25,7 +25,7 @@
 
 <body>
     <!-- Overlay popups -->
-    <div id="overlay" class="transition">
+    <div id="overlay" class="transition" hidden>
         <a class="close"></a>
     </div>
     <section id="music" class="transition" hidden>
@@ -36,7 +36,7 @@
         <input type="text" maxlength="100" id="song-name"><br><br>
         <button id="submit-song">Submit</button>
     </section>
-    <div id="popup">
+    <div id="popup" hidden>
         <div class="reveal-wrapper" id="asset-invite">
 
             <div class="letter-underneath">
@@ -180,6 +180,9 @@
         </p>
         <p>
             <a href="itinerary/">View the timeline for the day</a>
+        </p>
+        <p>
+            <a href="song/">View the words to our ceremony song</a>
         </p>
     </section>
 
