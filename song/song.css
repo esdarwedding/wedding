@@ -1,0 +1,66 @@
+/* Song page only. Kept out of the main style.css so this standalone
+   page can't be broken by a stale cached copy of the site stylesheet. */
+
+#song-section {
+    padding: 45px 20px 55px;
+}
+
+.song-names {
+    font-family: "Birthstone", cursive;
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 auto 4px auto;
+    color: #411900;
+}
+
+/* margin-left/right must stay auto — section p in style.css centres a 480px box */
+.song-subtitle {
+    letter-spacing: 3px;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 0 auto 18px auto;
+    color: #411900;
+}
+
+/* Matches the 480px box section p uses in style.css, so the rules between
+   blocks line up with the lyrics instead of spanning the whole viewport. */
+.lyrics {
+    max-width: 480px;
+    margin: 30px auto 0 auto;
+}
+
+/* One stanza per paragraph; the blank line between stanzas is this margin. */
+.lyrics-lines+.lyrics-lines {
+    margin-top: 30px;
+}
+
+.lyrics-lines {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0 auto;
+    color: #411900;
+}
+
+/* One block per lyric line. A long line that wraps on a narrow screen stays
+   tight at line-height 1.35, while the gap between separate lines comes from
+   margin-bottom — so a wrapped continuation never reads as a new line. */
+.lyric-line {
+    display: block;
+    line-height: 1.35;
+    margin-bottom: 11px;
+}
+
+.lyric-line:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 650px) {
+    .song-names {
+        font-size: 44px;
+    }
+
+    .lyrics-lines {
+        font-size: 15px;
+    }
+}
